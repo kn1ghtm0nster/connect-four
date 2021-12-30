@@ -8,6 +8,9 @@ Dec 29:
 planning:
 HTML:
 - setting div to reflect each row of the connect four area.
-- top row is a row of links that each player can click on to add their color to the board matrix.
+    -This was completed by adding table rows and columns. Top row was placed in a table head (th) to make things easier for me to understand and separate the actual board from the area that the players would be clicking on.
+    - After top row was added, radius of the border was changed to 50% to make the element a circle representing a connect 4 dot.
+- Top row is what controls where the dot will be added through an eventListener(click).
 - JS needs to check which player is currently playing basedon the color of each circle (checking each class to see if it's red of blue).
+    - POSSIBLE IDEA: toggle player class on and off to change the color of the dot added along with updating the matrix of the board to contain the same color name.
 - COULD save game state to localStorage OR sessionStorage.

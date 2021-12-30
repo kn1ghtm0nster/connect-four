@@ -1,10 +1,31 @@
+html {
+	height: 100%;
+}
+
+body {
+	background-image: linear-gradient(to bottom left, #9d4edd, #80ffdb);
+}
+
+h1 {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+#board {
+	/* background-color: rgba(0, 0, 0, 0.2); */
+	background-color: rgba(171, 236, 240, 0.27);
+	border-radius: 6px;
+	padding: 2em;
+	margin: auto;
+}
+/* centering board */
+
 /* game board table */
 
 #board td {
 	width: 50px;
 	height: 50px;
-	/* border: solid 1px #666; */
-	border: solid 5px red;
+	border-radius: 5px;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
@@ -12,9 +33,14 @@
 .piece {
 	/* TODO: make into circles */
 	border-radius: 50%;
-	margin: 5px;
-	width: 80%;
-	height: 80%;
+	margin: 2.5px;
+	width: 90%;
+	height: 90%;
+	background-color: white;
+}
+
+td {
+	background-color: #90e0ef;
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
@@ -22,7 +48,9 @@
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
+	background-color: white;
 	border: dashed 1px lightgray;
+	border-radius: 50%;
 }
 
 #column-top td:hover {
