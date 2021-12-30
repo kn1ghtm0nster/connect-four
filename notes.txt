@@ -1,0 +1,13 @@
+Dec 29:
+- Starting code has been downloaded.
+- main task for Dec 30 is as follows:
+    - setup main board. Remember, the request is to have 7 cols and 7 rows
+    - Top row of board is to be a link or button that users can click to add a blue/red circle to the board
+
+
+planning:
+HTML:
+- setting div to reflect each row of the connect four area.
+- top row is a row of links that each player can click on to add their color to the board matrix.
+- JS needs to check which player is currently playing basedon the color of each circle (checking each class to see if it's red of blue).
+- COULD save game state to localStorage OR sessionStorage.
