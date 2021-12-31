@@ -6,7 +6,9 @@
  */
 
 const WIDTH = 7;
+// board width set to 7 columns.
 const HEIGHT = 6;
+// height of main playing board 6 rows.
 
 // const restart = document.querySelector('#restart');
 const checkTurn = document.querySelector('#message');
@@ -122,13 +124,26 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
 	// TODO: write the real version of this, rather than always returning 0
-	return 0;
+	// You need to loop over the HEIGHT variable. WHY? because you're looping over the COLUMN not the rows. You will  also need to start at height-1 to account for the top row/dot that is filled.
+	// You need to return the open x coordinate dot. within the matrix.
+	for (let y = HEIGHT - 1; y >= 0; y--) {
+		// looping over height of columns EXCEPT the top row because top row should not be considered.
+		// console.log(board[y][x]);
+		if (y[x] === null) {
+			// if the row value is equal to 'null' return the next y row value above the filled dot (next available dot)
+			return y;
+		}
+		// if the entire row is filled, return 'null'
+		return null;
+	}
+	// return 0;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
 	// TODO: make a div and insert into correct table cell
+	const playerDiv = document.createElement('div');
 }
 
 /** endGame: announce game end */
