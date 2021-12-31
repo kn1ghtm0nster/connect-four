@@ -144,6 +144,7 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
 	// TODO: make a div and insert into correct table cell
 	const playerDiv = document.createElement('div');
+	// creating new div element to track each player.
 }
 
 /** endGame: announce game end */
