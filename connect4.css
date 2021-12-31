@@ -11,6 +11,16 @@ h1 {
 	text-align: center;
 }
 
+.message {
+	font-size: 2em;
+	letter-spacing: 2px;
+	margin-left: 45%;
+}
+
+#restart {
+	margin-left: 45%;
+}
+
 #board {
 	/* background-color: rgba(0, 0, 0, 0.2); */
 	background-color: rgba(171, 236, 240, 0.27);
@@ -34,8 +44,8 @@ h1 {
 	/* TODO: make into circles */
 	border-radius: 50%;
 	margin: 2.5px;
-	width: 90%;
-	height: 90%;
+	width: 87%;
+	height: 87%;
 	background-color: white;
 }
 
@@ -44,6 +54,14 @@ td {
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
+
+.player1 {
+	background-color: red;
+}
+
+.player2 {
+	background-color: blue;
+}
 
 /* column-top is table row of clickable areas for each column */
 
