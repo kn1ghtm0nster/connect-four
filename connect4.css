@@ -8,7 +8,7 @@ body {
 
 h1 {
 	font-size: 5em;
-	letter-spacing: 0.5em;
+	letter-spacing: 0.3em;
 	font-family: 'Bebas Neue', cursive;
 	text-transform: uppercase;
 	text-align: center;
@@ -16,6 +16,11 @@ h1 {
 
 td {
 	background-color: #90e0ef;
+}
+
+.letter {
+	transition: color 1500ms;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #message {
@@ -27,7 +32,22 @@ td {
 }
 
 #restart {
+	border: 2px solid black;
 	margin-left: 47%;
+	font-size: 1.5em;
+	letter-spacing: 1px;
+	border-radius: 5px;
+	text-transform: uppercase;
+	font-family: 'Teko', sans-serif;
+	background-color: rgba(255, 255, 255, 0.5);
+	transition-property: background-color, color, border;
+	transition-duration: 500ms;
+}
+
+#restart:hover {
+	background-color: red;
+	color: white;
+	border: 2px solid white;
 }
 
 #board {

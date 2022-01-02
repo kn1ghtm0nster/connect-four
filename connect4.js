@@ -30,6 +30,20 @@ const resetGame = () => {
 };
 restart.addEventListener('click', resetGame);
 
+const letter = document.querySelectorAll('.letter');
+const getRandRgb = () => {
+	const r = Math.floor(Math.random() * 256);
+	const g = Math.floor(Math.random() * 256);
+	const b = Math.floor(Math.random() * 256);
+	return `rgb(${r},${g},${b})`;
+};
+
+setInterval(function() {
+	for (let l of letter) {
+		l.style.color = getRandRgb();
+	}
+}, 1500);
+
 /** makeBoard: create in-JS board structure:
   *    board = array of rows, each row is array of cells  (board[y][x])
   */
@@ -174,16 +188,23 @@ function checkForWin() {
 
 	// TODO: read and understand this code. Add comments to help you.
 
-	for (var y = 0; y < HEIGHT; y++) {
-		for (var x = 0; x < WIDTH; x++) {
-			var horiz = [ [ y, x ], [ y, x + 1 ], [ y, x + 2 ], [ y, x + 3 ] ];
-			var vert = [ [ y, x ], [ y + 1, x ], [ y + 2, x ], [ y + 3, x ] ];
-			var diagDR = [ [ y, x ], [ y + 1, x + 1 ], [ y + 2, x + 2 ], [ y + 3, x + 3 ] ];
-			var diagDL = [ [ y, x ], [ y + 1, x - 1 ], [ y + 2, x - 2 ], [ y + 3, x - 3 ] ];
+	for (let y = 0; y < HEIGHT; y++) {
+		// looping over each row of the board.
+		for (let x = 0; x < WIDTH; x++) {
+			// looping over each column for each row.
+			const horiz = [ [ y, x ], [ y, x + 1 ], [ y, x + 2 ], [ y, x + 3 ] ];
+			// horizontal check works as follows. first y,x coordinate (0-0) and then you begin adding one to X to get the remaining 3 dots in that row.
+			const vert = [ [ y, x ], [ y + 1, x ], [ y + 2, x ], [ y + 3, x ] ];
+			// vertical check works as follows. First y-x coordinate (0-0) and then the loop begins adding one to each y coordinate to get the remaining dots below.
+			const diagDR = [ [ y, x ], [ y + 1, x + 1 ], [ y + 2, x + 2 ], [ y + 3, x + 3 ] ];
+			// diagnoal(RIGHT) variable works as follows. First y-x coordinate (0-0). variable then checks each diagonal dot by adding 1, 2, or 3 to each variable index.
+			const diagDL = [ [ y, x ], [ y + 1, x - 1 ], [ y + 2, x - 2 ], [ y + 3, x - 3 ] ];
+			// diagnoal(LEFT) variable works similar to previous variable BUT only x coordinate is being updated expect this time, x-coordinate is going backwards (down to the left)
 
 			if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
 				return true;
 			}
+			// if ANY of the variables evaluate to true through the '_win' function which is checking every individual cell, then the conditional evaluates to true and a winner is found. function is called under conditional within handleClick function.
 		}
 	}
 }
