@@ -5,168 +5,139 @@
  * board fills (tie)
  */
 
-const WIDTH = 7;
-// board width set to 7 columns.
-const HEIGHT = 6;
-// height of main playing board 6 rows.
+// width of board (7 columns)
+let WIDTH = 7;
+// height of board (6 rows ignoring the top most row for player moves)
+let HEIGHT = 6;
 
-// const restart = document.querySelector('#restart');
+// selecting restart button.
+const restart = document.getElementById('restart');
+
 const checkTurn = document.querySelector('#message');
 
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
-// fucntion below is used to reset the baord if the 'restart button is clicked'
-function resetGame() {
+// function below is used to reset the baord if the 'restart button is clicked'
+const resetGame = () => {
 	const htmlBoard = document.querySelector('#board');
-	// setting htmlBoard varibale to access the board table from html elements.
 	htmlBoard.innerText = '';
-	// setting the inner text of the board to be blank.
 	board = [];
-	// resetting board matrix to be an empty array.
 	makeBoard();
-	// making a new board with makeBoard() function.
 	makeHtmlBoard();
-	// calling makeHtmlBoard() to add the elements that were removed BACK to the page.
 	currPlayer = 1;
-	// resetting current player to be player 1 (default player)
-	checkTurn.innerText = `>Player ${currPlayer}'s Turn`;
-	// setting the text above the reset button to reset to player 1 -> 'Player 1's turn'
-}
+	checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
+};
+restart.addEventListener('click', resetGame);
 
 /** makeBoard: create in-JS board structure:
- *    board = array of rows, each row is array of cells  (board[y][x])
- */
+  *    board = array of rows, each row is array of cells  (board[y][x])
+  */
 
-function makeBoard() {
+const makeBoard = () => {
 	// TODO: set "board" to empty HEIGHT x WIDTH matrix array
 	for (let y = 0; y < HEIGHT; y++) {
 		board.push(Array(WIDTH).fill(null, 0));
 	}
-	// function creates a new board in as the following:
-	// loops over the height variable (6) adding 1 to the loop each time.
-	// as the code loops over, the board varibale defined at the top gains a new row that is 7 values long. Each value that is passed is a 'null' value' starting at index of 0.
 	return board;
-}
+};
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
-function makeHtmlBoard() {
+const makeHtmlBoard = () => {
 	// TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
 	const htmlBoard = document.getElementById('board');
-	// selecting board that was created from makeBoard() function.
-	const gameArea = document.querySelector('#game');
-	// selecting the game div to add new paragraph and button.
-	const playerMsg = document.createElement('p');
-	// creating new p element to display player turn.
-	const restartBtn = document.createElement('button');
-	playerMsg.setAttribute('class', 'message');
-	// setting the class of message to the playerMsg variable.
-	playerMsg.innerText = 'TESTING ';
-	// inner text of player message to equal the current player's turn EX: `Player ${currPlayer}'s turn`
-	restartBtn.setAttribute('id', 'restart');
-	// setting restart id to restart button that was created.
-	restartBtn.innerText = 'Restart Game';
-	// setting inner text of the restart button to 'Restart Game'
-	gameArea.appendChild(playerMsg);
-	// adding player message to bottom of game area.
-	gameArea.appendChild(restartBtn);
-	// adding button below player mesasage area.
 
 	// TODO: add comment for this code
 	const top = document.createElement('tr');
-	// creating table row element
 	top.setAttribute('id', 'column-top');
-	// setting id of top row to 'colum-top' which will allow css styles to be applied.
 	top.addEventListener('click', handleClick);
-	// each top circle is listening for a click event and passing the 'handleClick' callback (defined below)
+	// code above is creating a table ROW element and assigning to variable 'top'
+	// after new row is created, code adds id with the value of 'column-top' which will allow css styles to be applied.
 
 	for (let x = 0; x < WIDTH; x++) {
-		// looping over WIDTH variable (7)
 		const headCell = document.createElement('td');
-		// creating a new td element for each loop.
 		headCell.setAttribute('id', x);
-		// setting the id of each table data element to be the x count.
 		top.append(headCell);
-		// adding the new element to the table row that was created
 	}
+	/*loop above is looping over the WIDTH variable which was set as 7 (7 columns for connect 4 board).
+	each time the loop completes, a new table DATA elment is created which is assignd to 'headCell' variable.
+	each headCell is given id attribute with the value of the x variable from the loop to help identify each circle players will use.
+	*/
+
 	htmlBoard.append(top);
-	// adding the elements from the top row to the htmlBoard array.
+	// appending top row to the main htmlboard. This will also include each new circle that was made from the loop above.
 
 	// TODO: add comment for this code
 	for (let y = 0; y < HEIGHT; y++) {
-		// looping over the HEIGHT variable. Height is set at 6 since the top row was added from the WIDTH variable.
 		const row = document.createElement('tr');
-		// creating a tr element eveyr time that loop completes. Six (6) rows.
 		for (let x = 0; x < WIDTH; x++) {
-			// looping over WIDTH variable to line up with main row.
 			const cell = document.createElement('td');
-			// every time loop completes we are creting a td element.
-			const pieceDiv = document.createElement('div');
-			// we are also creating a div element.
-			pieceDiv.setAttribute('class', 'piece');
-			// setting the new div class to 'piece' so that styling is applied from CSS.
-			cell.appendChild(pieceDiv);
-			// appending div element to td that was created.
 			cell.setAttribute('id', `${y}-${x}`);
-			// setting id attribute for the new td to be  the Y coordinate of the element and the X coordinate of the element.
+
+			const whiteCell = document.createElement('div');
+			whiteCell.setAttribute('class', 'blank-cell');
+
+			cell.append(whiteCell);
 			row.append(cell);
-			// adding the cell to the tr element.
 		}
 		htmlBoard.append(row);
-		// appenending the entire new row created to the htmlBoard array.
 	}
-}
+	/* 
+	loop above is creating a new row each time the loop iterates over the HEIGHT variable (6 rows for the main board arena)
+	each time the loop is completed a new table ROW element is created
+	a nested loop is then created to loop through the individual cells of each row and we use the WIDTH variable to get the table DATA elements created (squares) created which are assigned to the 'cell' variable.
+	each 'cell' variable will be given an id that contain the coordinates of that cell and afterwards the cell is appended to the row parent element from the outer loop.
+	once the inner loop has been appended, the row is appended to the htmlBoard variable.
+	*/
+	checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
+};
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
-// function returns the value of the next available dot within that column. IF all values are filled for that column, return NULL.
-
-function findSpotForCol(x) {
+const findSpotForCol = (x) => {
 	// TODO: write the real version of this, rather than always returning 0
-	// You need to loop over the HEIGHT variable. WHY? because you're looping over the COLUMN not the rows. You will  also need to start at height-1 to account for the top row/dot that is filled.
-	// You need to return the open x coordinate dot. within the matrix.
 	for (let y = HEIGHT - 1; y >= 0; y--) {
-		// looping over height of columns EXCEPT the top row because top row should not be considered.
-		// console.log(board[y][x]);
-		if (y[x] === null) {
-			// if the row value is equal to 'null' return the next y row value above the filled dot (next available dot)
+		if (board[y][x] === null) {
 			return y;
 		}
-		// if the entire row is filled, return 'null'
-		return null;
 	}
-	// return 0;
-}
+	return null;
+};
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
-function placeInTable(y, x) {
+const placeInTable = (y, x) => {
 	// TODO: make a div and insert into correct table cell
-	const playerDiv = document.createElement('div');
-	// creating new div element to track each player.
-}
+	const mainRowCircle = document.getElementById(`${y}-${x}`);
+	console.log(`${y}-${x}`);
+	const playerPiece = document.createElement('div');
+	playerPiece.classList.add('piece', `player${currPlayer}`);
+	mainRowCircle.append(playerPiece);
+};
 
 /** endGame: announce game end */
 
-function endGame(msg) {
+const endGame = (msg) => {
 	// TODO: pop up alert message
-}
+	alert(msg);
+};
 
 /** handleClick: handle click of column top to play piece */
 
-function handleClick(evt) {
+const handleClick = (evt) => {
 	// get x from ID of clicked cell
 	let x = +evt.target.id;
 
 	// get next spot in column (if none, ignore click)
-	let y = findSpotForCol(x);
+	const y = findSpotForCol(x);
 	if (y === null) {
 		return;
 	}
 
 	// place piece in board and add to HTML table
 	// TODO: add line to update in-memory board
+	board[y][x] = currPlayer;
 	placeInTable(y, x);
 
 	// check for win
@@ -176,10 +147,19 @@ function handleClick(evt) {
 
 	// check for tie
 	// TODO: check if all cells in board are filled; if so call, call endGame
+	if (board.every((matrix) => matrix.indexOf(null) === -1)) {
+		alert('TIE GAME!');
+	}
 
 	// switch players
-	// TODO: switch currPlayer 1 <-> 2
-}
+	if (currPlayer === 1) {
+		currPlayer = 2;
+		checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
+	} else {
+		currPlayer = 1;
+		checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
+	}
+};
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
@@ -194,12 +174,12 @@ function checkForWin() {
 
 	// TODO: read and understand this code. Add comments to help you.
 
-	for (let y = 0; y < HEIGHT; y++) {
-		for (let x = 0; x < WIDTH; x++) {
-			const horiz = [ [ y, x ], [ y, x + 1 ], [ y, x + 2 ], [ y, x + 3 ] ];
-			const vert = [ [ y, x ], [ y + 1, x ], [ y + 2, x ], [ y + 3, x ] ];
-			const diagDR = [ [ y, x ], [ y + 1, x + 1 ], [ y + 2, x + 2 ], [ y + 3, x + 3 ] ];
-			const diagDL = [ [ y, x ], [ y + 1, x - 1 ], [ y + 2, x - 2 ], [ y + 3, x - 3 ] ];
+	for (var y = 0; y < HEIGHT; y++) {
+		for (var x = 0; x < WIDTH; x++) {
+			var horiz = [ [ y, x ], [ y, x + 1 ], [ y, x + 2 ], [ y, x + 3 ] ];
+			var vert = [ [ y, x ], [ y + 1, x ], [ y + 2, x ], [ y + 3, x ] ];
+			var diagDR = [ [ y, x ], [ y + 1, x + 1 ], [ y + 2, x + 2 ], [ y + 3, x + 3 ] ];
+			var diagDL = [ [ y, x ], [ y + 1, x - 1 ], [ y + 2, x - 2 ], [ y + 3, x - 3 ] ];
 
 			if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
 				return true;

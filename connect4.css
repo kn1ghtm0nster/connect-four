@@ -7,18 +7,27 @@ body {
 }
 
 h1 {
+	font-size: 5em;
+	letter-spacing: 0.5em;
+	font-family: 'Bebas Neue', cursive;
 	text-transform: uppercase;
 	text-align: center;
 }
 
-.message {
+td {
+	background-color: #90e0ef;
+}
+
+#message {
+	text-transform: uppercase;
+	font-family: 'Anton', sans-serif;
 	font-size: 2em;
 	letter-spacing: 2px;
-	margin-left: 45%;
+	margin-left: 41%;
 }
 
 #restart {
-	margin-left: 45%;
+	margin-left: 47%;
 }
 
 #board {
@@ -36,21 +45,29 @@ h1 {
 	width: 50px;
 	height: 50px;
 	border-radius: 5px;
+	position: relative;
+	padding: 0px;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
 
+.blank-cell {
+	margin: 5px;
+	width: 80%;
+	height: 80%;
+	border-radius: 50%;
+	background-color: white;
+	position: absolute;
+	top: 1px;
+}
+
 .piece {
 	/* TODO: make into circles */
 	border-radius: 50%;
-	margin: 2.5px;
-	width: 87%;
-	height: 87%;
-	background-color: white;
-}
-
-td {
-	background-color: #90e0ef;
+	margin: 5px;
+	width: 85%;
+	height: 85%;
+	position: relative;
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
