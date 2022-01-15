@@ -134,7 +134,11 @@ const placeInTable = (y, x) => {
 
 const endGame = (msg) => {
 	// TODO: pop up alert message
-	alert(msg);
+	setTimeout(function() {
+		alert(msg);
+	}, 200);
+	const topRow = document.getElementById('column-top');
+	topRow.removeEventListener('click', handleClick);
 };
 
 /** handleClick: handle click of column top to play piece */
@@ -166,13 +170,8 @@ const handleClick = (evt) => {
 	}
 
 	// switch players
-	if (currPlayer === 1) {
-		currPlayer = 2;
-		checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
-	} else {
-		currPlayer = 1;
-		checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
-	}
+	currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
+	checkTurn.innerText = `Current Player Turn: ${currPlayer}`;
 };
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
